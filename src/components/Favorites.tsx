@@ -19,8 +19,8 @@ const Favorites = (props: Props) => {
       <TabsContent value="recently" className="pr-2 pb-1 pl-2">
         {/* create bulleted list */}
         <ul className="list-disc pl-8">
-          <li className="text-sm font-normal mb-2">Item 4</li>
-          <li className="text-sm font-normal mb-2">Item 5</li>
+          <li className="text-sm font-normal mb-2">Customers</li>
+          <li className="text-sm font-normal mb-2">Checkout</li>
         </ul>
       </TabsContent>
     </Tabs>

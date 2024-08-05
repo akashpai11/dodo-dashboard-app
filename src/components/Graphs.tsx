@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CardContainer from "./CardContainer";
 import BarChart from "@/components/BarChart";
 import LineChart from "@/components/LineChart";
@@ -12,6 +12,33 @@ type GraphProps = {
 };
 
 const GraphCard = (props: GraphProps) => {
+  const [lineData, setlineData] = useState<[]>([]);
+  const [transaction, setTransaction] = useState<[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetch("/api/chartData/line/revenue")
+        .then((res) => res.json())
+        .then((data) => {
+          setlineData(data);
+        })
+        .catch((error) => console.error(error));
+    };
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetch("/api/chartData/line/transaction")
+        .then((res) => res.json())
+        .then((data) => {
+          setTransaction(data);
+        })
+        .catch((error) => console.error(error));
+    };
+    fetchData();
+  }, []);
+
   return (
     <CardContainer style={{ backgroundColor: props.color }}>
       <section>
@@ -20,7 +47,13 @@ const GraphCard = (props: GraphProps) => {
 
       <section className="flex items-center justify-between">
         {props.type === "bar" && <BarChart />}
-        {props.type === "line" && <LineChart />}
+        {props.type === "lineRevenue" && (
+          <LineChart lineData={lineData} type={props.type} />
+        )}
+
+        {props.type === "lineTransaction" && (
+          <LineChart lineData={transaction} type={props.type} />
+        )}
         {props.type === "pie" && <PieChart />}
       </section>
     </CardContainer>

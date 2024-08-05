@@ -1,24 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Cell,
   Legend,
   Pie,
   PieChart as PieGraph,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
 
 type Props = {};
 
-const data = [
-  { name: "United States", value: 38.6 },
-  { name: "Canada", value: 22.5 },
-  { name: "Europe", value: 30.8 },
-  { name: "Other", value: 8.1 },
-];
-
 const COLORS = ["#EF8E5B", "#0B6468", "#C5FA58", "#526062"];
 
 const PieChart = (props: Props) => {
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetch("/api/chartData/pie")
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data);
+        })
+        .catch((error) => console.error(error));
+    };
+    fetchData();
+  }, []);
+
   return (
     <ResponsiveContainer width="100%" height={250}>
       <PieGraph width={100} height={200}>
@@ -38,20 +46,14 @@ const PieChart = (props: Props) => {
             />
           ))}
         </Pie>
-        {/* <Legend
+        <Tooltip />
+        <Legend
+          iconType="circle"
           iconSize={6}
-          className="text-sm"
-          payload={data.map((item, index) => ({
-            id: item.name,
-            type: "circle",
-            value: `${item.name} (${item.value}%)`,
-            color: COLORS[index % COLORS.length],
-          }))}
-          verticalAlign="middle"
-          layout="vertical"
-          align="right"
-          color="#1C1C1C"
-        /> */}
+          formatter={(value, entry, index) => (
+            <span className="text-dodoText text-sm">{value}</span>
+          )}
+        />
       </PieGraph>
     </ResponsiveContainer>
   );

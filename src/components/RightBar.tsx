@@ -2,8 +2,14 @@
 
 import React from "react";
 import Notifications, { NotificationProps } from "./Notifications";
-import { spider, atSignCircle } from "@lucide/lab";
-import { useWindowWidth } from "@react-hook/window-size";
+import {
+  spider,
+  atSignCircle,
+  bagHand,
+  cabinetFiling,
+  chevronsLeftRightSquare,
+  targetArrow,
+} from "@lucide/lab";
 
 type Props = {};
 
@@ -30,34 +36,56 @@ const notificationData: NotificationProps[] = [
   },
 ];
 
+const activitiesData: any[] = [
+  {
+    title: "Discount details updated",
+    description: "Just now",
+    icon: spider,
+  },
+  {
+    title: "Aman added a new product",
+    description: "59 minutes ago",
+    icon: chevronsLeftRightSquare,
+  },
+  {
+    title: "Refunds cleared",
+    description: "12 hours ago",
+    icon: bagHand,
+  },
+  {
+    title: "Tax report download completed",
+    description: "Today, 11:59 AM",
+    icon: cabinetFiling,
+  },
+  {
+    title: "Product details updated",
+    description: "8 hours ago",
+    icon: targetArrow,
+  },
+];
+
 const RightBar = (props: Props) => {
-  const onlyWidth = useWindowWidth();
-  console.log("ONLY WIDTH", onlyWidth);
-
-  const mobile = onlyWidth < 841;
-  console.log("MOBILE RIGHTBAR", mobile);
-
   return (
-    <div
-      className={`flex flex-col space-y-16 gap-6 p-6 w-1/5 border-l-[1px] ${
-        mobile ? "hidden" : "lg:block"
-      }`}
-    >
-      <div className="flex flex-col gap-4">
-        <section>
-          <p className="text-sm dark:text-white font-semibold">Notifications</p>
-        </section>
-        {notificationData.map((notification, index) => (
-          <Notifications key={index} {...notification} />
-        ))}
-      </div>
-      <div className="flex flex-col gap-4">
-        <section>
-          <p className="text-sm dark:text-white font-semibold">Activities</p>
-        </section>
-        {notificationData.map((notification, index) => (
-          <Notifications key={index} {...notification} />
-        ))}
+    <div className="gap-6 p-6 w-1/5 border-l-[1px] hidden lg:block ">
+      <div className="flex flex-col space-y-16">
+        <div className="flex flex-col gap-4">
+          <section>
+            <p className="text-sm dark:text-white font-semibold">
+              Notifications
+            </p>
+          </section>
+          {notificationData.map((notification, index) => (
+            <Notifications key={index} {...notification} />
+          ))}
+        </div>
+        <div className="flex flex-col gap-4">
+          <section>
+            <p className="text-sm dark:text-white font-semibold">Activities</p>
+          </section>
+          {activitiesData.map((notification, index) => (
+            <Notifications key={index} {...notification} />
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart as BarGraph,
   ResponsiveContainer,
@@ -36,6 +36,20 @@ const data = [
 ];
 
 const BarChart = (props: Props) => {
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetch("/api/chartData/bar")
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data);
+        })
+        .catch((error) => console.error(error));
+    };
+    fetchData();
+  }, []);
+
   return (
     <ResponsiveContainer width={"100%"} height={250}>
       <BarGraph data={data}>

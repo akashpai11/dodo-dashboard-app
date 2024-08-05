@@ -1,7 +1,7 @@
 "use client";
 
 import { Rocket, StarIcon } from "lucide-react";
-import React, { useState } from "react";
+import React from "react";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -16,13 +16,6 @@ type Props = {};
 
 const Breadcrumbs = (props: Props) => {
   const pathName = usePathname();
-  console.log(pathName);
-
-  const [starColor, setStarColor] = useState("black");
-
-  const updateStarColor = () => {
-    setStarColor(starColor === "black" ? "yellow" : "black");
-  };
 
   const pathNameTransformed = (pathName: string) => {
     return pathName
@@ -37,12 +30,7 @@ const Breadcrumbs = (props: Props) => {
       {/* add icon */}
       <div className="flex gap-2">
         <Rocket size={26} strokeWidth={1.5} />
-        <StarIcon
-          color={starColor}
-          size={26}
-          strokeWidth={1.5}
-          onClick={updateStarColor}
-        />
+        <StarIcon size={26} strokeWidth={1.5} />
       </div>
 
       <Breadcrumb>

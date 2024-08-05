@@ -1,38 +1,24 @@
 import { ArrowBigDown, ArrowDown, ChevronDown } from "lucide-react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import Card, { CardProps } from "./Card";
 
 type Props = {};
 
-const cardData: CardProps[] = [
-  {
-    title: "Revenue",
-    amount: "$24M",
-    percentage: "11.01",
-    color: "#F9FEF0",
-  },
-  {
-    title: "Transaction",
-    amount: "14K",
-    percentage: "-0.03",
-    color: "#DBE6F2",
-  },
-  {
-    title: "Average transaction",
-    amount: "$2K",
-    percentage: "15.03",
-    color: "#F9FEF0",
-  },
-  {
-    title: "Refunds",
-    amount: "1K",
-    percentage: "6.08",
-    color: "#DBE6F2",
-  },
-];
-
 const Summary = (props: Props) => {
+  const [data, setData] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await fetch("/api/summary")
+        .then((res) => res.json())
+        .then((data) => {
+          setData(data);
+        })
+        .catch((error) => console.error(error));
+    };
+    fetchData();
+  }, []);
   return (
     <div className="mb-4">
       <Button
@@ -46,7 +32,7 @@ const Summary = (props: Props) => {
       </Button>
 
       <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
-        {cardData.map((card, index) => (
+        {data.map((card, index) => (
           <Card key={index} {...card} />
         ))}
       </section>
