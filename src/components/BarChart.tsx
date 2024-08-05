@@ -8,6 +8,7 @@ import {
   YAxis,
   Bar,
   CartesianGrid,
+  Tooltip,
 } from "recharts";
 
 type Props = {};
@@ -53,6 +54,7 @@ const BarChart = (props: Props) => {
   return (
     <ResponsiveContainer width={"100%"} height={250}>
       <BarGraph data={data}>
+        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
         <XAxis
           dataKey="name"
           tickLine={false}
@@ -66,6 +68,10 @@ const BarChart = (props: Props) => {
           axisLine={false}
           fontSize={12}
           tickFormatter={(value) => `${value}K`}
+        />
+        <Tooltip
+          cursor={{ fill: "transparent" }}
+          formatter={(value) => `${value}K`}
         />
         <Bar dataKey="views" radius={[4, 4, 0, 0]} barSize={20} />
       </BarGraph>

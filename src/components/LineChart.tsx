@@ -7,6 +7,7 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
+  CartesianGrid,
 } from "recharts";
 
 type Props = {
@@ -36,7 +37,15 @@ const LineChart = (props: Props) => {
             fontSize={12}
             tickFormatter={(value) => `$${value}K`}
           />
-          <Tooltip />
+          <CartesianGrid stroke="#1C1C1C0D" strokeDasharray="5 5" />
+
+          <Tooltip
+            cursor={{
+              stroke: "#D7D7D7",
+              strokeWidth: 1,
+              strokeDasharray: "8 8",
+            }}
+          />
           <Line
             type="monotone"
             dataKey="value"
@@ -62,7 +71,15 @@ const LineChart = (props: Props) => {
             fontSize={12}
             tickFormatter={(value) => `${convertToK(value)}`}
           />
-          <Tooltip />
+          <CartesianGrid stroke="#1C1C1C0D" strokeDasharray="5 5" />
+
+          <Tooltip
+            cursor={{
+              stroke: "#D7D7D7",
+              strokeWidth: 1,
+              strokeDasharray: "8 8",
+            }}
+          />
           <Line
             type="monotone"
             dataKey="value"
